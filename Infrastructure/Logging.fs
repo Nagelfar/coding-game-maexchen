@@ -3,7 +3,7 @@ module Logging
 open System
 open System.IO
 
-let mutable private gameTokenFileName : string = "none"
+let mutable private gameTokenFileName : string = (DateTime.Now.ToString("o"))
 let private log_ext = ".log"
 let private log_path = "./logs"
 let private logFileName() =
@@ -65,12 +65,12 @@ let private logAgent =
     mb
 
 //API
-let changeGameFileName game =
+let changeLogFileName game =
     gameTokenFileName <- game
     logAgent.Post(Rollover)
 
 let log (tag : string) (desc : string) =
-    let msg = sprintf "%A %s : %s" DateTime.Now tag desc
+    let msg = sprintf "%s\t[%s]\t\t%s" (DateTime.Now.ToString("o")) tag desc
     logAgent.Post(Log msg)
 
 let logInfo (desc : string) = log "info" desc

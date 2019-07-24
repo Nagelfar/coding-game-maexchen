@@ -1,7 +1,6 @@
 module Domain
 
 open Logging
-
 open Model
 
 let computeCardValue aceSelector card =
@@ -51,8 +50,7 @@ let decide (state : State) event : Command list =
     match event with
     | CardRecived x -> [ SetGeld(1, "S") ]
     | Ok -> [ Join(state.self) ]
-    | Money x-> [Stay (state.self)]
+    | Money x -> [ Stay(state.self) ]
     | _ ->
         log "warn" (sprintf "No handler for event %A defined" event)
         []
-

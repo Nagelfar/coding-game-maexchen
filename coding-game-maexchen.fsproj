@@ -5,12 +5,13 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Logging.fs" />
-    <Compile Include="Connectivity.fs" />
+    <Compile Include="Infrastructure/Logging.fs" />
+    <Compile Include="Infrastructure/Connectivity.fs" />
     <Compile Include="Model.fs" />
     <Compile Include="Domain.fs" />
     <Compile Include="ApplicationServices.fs" />
     <Compile Include="ServerCommunication.fs" />
     <Compile Include="Program.fs" />
+    
   </ItemGroup>
 </Project>
