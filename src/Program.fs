@@ -7,7 +7,10 @@ let messageLoop receiver dispatch =
     let loop =
         fun () ->
             while true do
-                receiver dispatch
+                try
+                    receiver dispatch
+                with
+                    | e -> logex "warn" e
 
     let thread = System.Threading.Thread(loop)
     thread.IsBackground <- true
