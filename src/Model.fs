@@ -1,58 +1,37 @@
 [<AutoOpen>]
 module Model
 
-type Token = Token of string
-
 type Player = Player of string
 
-type Rundennummer = Rundennummer of int
-
-type Card =
-    | Two
-    | Three
-    | Four
-    | Five
-    | Six
-    | Seven
-    | Eight
-    | Nine
-    | Ten
-    | Jack
-    | Queen
-    | King
-    | Ace
-
-type Hand = Card list
-
-type Value = int
+type Dice = int
+type Toss = Dice * Dice
+type Roundnumber = int
+type Score = int
 
 type Command =
     | Join of Player
-    | SetGeld of int * string
-    | PickCard of string
-    | Stay of Player
+    | Attend of Player
+    | SayDices of Toss
+    | SayDicesWithName of Toss * Player
+    | See of Player
+    | Roll of Player
 
-type PlayerScore = string * int
+
+
+type PlayerScore = Player * Score
 
 type Event =
     | Ok
+    | Rejected
+    | Attending
     | RoundStarting
-    | Set
-    | CardRecived of Card
-    | BankRecived of Card
-    | StayOrCard
-    | Money of int
-    | RoundEnded of PlayerScore list
-
-let LowAceValue : Value = 1
-let HighAceValue : Value = 11
-
-type HandValue =
-    { aceHigh : Value
-      aceLow : Value }
+    | Dices of Toss
+    | NewDices of Toss
+    | SeeOrRoll
+    | RoundEnded of Roundnumber * PlayerScore list
 
 type Round =
-    { dices : Card list }
+    { dices : Toss list }
     static member intial = { dices = [] }
 
 type State =
