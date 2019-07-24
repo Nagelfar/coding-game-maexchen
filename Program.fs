@@ -16,7 +16,7 @@ let messageLoop receiver dispatch =
 let sendMessageToServer sender command =
     match ServerCommunication.translate command with
     | Some(message) -> sender message
-    | None -> log "warn" (sprintf "Not sending command '%A'" command)
+    | None -> log "warn" (sprintf "Not able to send command '%A'" command)
 
 let receiveFromServer receiver handlers =
     let received = receiver()
@@ -27,7 +27,7 @@ let receiveFromServer receiver handlers =
             (sprintf "Cannot interprete and handle server-event '%A'" received)
 
 let handleEvents sendResponse event =
-    let result = Model.eventHandlers event
+    let result = ApplicationServices.eventHandlers event
     logVerbose (sprintf "Responding to %A with %A" event result)
     for command in result do
         sendResponse command
@@ -38,6 +38,6 @@ let main argv =
     let sender = sendMessageToServer rawSender
     let receiver = receiveFromServer rawReceiver
     messageLoop receiver (handleEvents sender)
-    sender Model.registerOnServer
+    sender ApplicationServices.registerOnServer
     Console.ReadLine() |> ignore
     0 // return an integer exit code

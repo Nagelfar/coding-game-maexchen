@@ -5,13 +5,13 @@ open Logging
 let translate (command : Command) =
     let tokenToString (Token t) = t
     match command with
-    | Join x -> Some("JOIN;" + x)
+    | Join (Player p) -> Some("JOIN;" + p)
     | SetGeld(betrag, p) -> Some("SET;" + (sprintf "%A" betrag) + ";" + p)
-    | Stay p -> Some("STAY;" + p)
+    | Stay (Player p) -> Some("STAY;" + p)
     | PickCard p -> Some("CARD;" + p)
     // | JoinGame g -> Some("JOIN;"+ tokenToString g.game )
-    | a ->
-        log "warn" (sprintf "Could not translate command %A" a)
+    | _ ->
+        log "warn" (sprintf "Could not translate command %A" command)
         None
 
 let private cleanup (message : string) =
@@ -19,6 +19,20 @@ let private cleanup (message : string) =
     if(cleaned <> message) then
         logVerbose (sprintf "Cleaned %A to %A" message cleaned)
     cleaned
+
+let private parseCard value =
+    match value with
+    | "2" -> Two
+    | "3" -> Three
+    | "4" -> Four
+    | "5" -> Five
+    | "6" -> Six
+    | "7" -> Seven
+    | "8" -> Eight
+    | "9" -> Nine
+    | "10" -> Ten
+    | "11" -> Ace
+    | _ -> failwithf "Unknown card value %s" value
 
 let private parse (message : string) =
     let parts = message.Split [| ';' |]
