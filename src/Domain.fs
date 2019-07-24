@@ -41,9 +41,15 @@ let computeHand (hand : Hand) =
     let handValue = List.fold addCard initialSum hand
     handValue
 
+let appendDices round dice = { round with dices = dice :: round.dices }
+
 let evolve state =
     function
-    | Ok -> { state with rounds = [] }
+    | Ok -> state
+    | RoundStarting -> { state with rounds = Round.intial :: state.rounds }
+    | CardRecived c ->
+        let updatedRound = appendDices state.rounds.Head c
+        { state with rounds = updatedRound :: state.rounds.Tail }
     | _ -> state
 
 let decide (state : State) event : Command list =

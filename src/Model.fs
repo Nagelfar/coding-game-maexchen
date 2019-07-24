@@ -52,7 +52,8 @@ type HandValue =
       aceLow : Value }
 
 type Round =
-    { dices : string list }
+    { dices : Card list }
+    static member intial = { dices = [] }
 
 type State =
     { self : Player
