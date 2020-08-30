@@ -11,8 +11,7 @@ type Score = int
 type Command =
     | Join of Player
     | Attend of Player
-    | SayDices of Toss
-    | SayDicesWithName of Toss * Player
+    | SayDices of Toss * Player
     | See of Player
     | Roll of Player
 
@@ -28,7 +27,7 @@ type Event =
     | Dices of Toss
     | NewDices of Toss
     | SeeOrRoll
-    | RoundEnded of Roundnumber * PlayerScore list
+    | RoundEnded of PlayerScore list
 
 type Round =
     { dices : Toss list }

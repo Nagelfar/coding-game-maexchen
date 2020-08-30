@@ -13,7 +13,7 @@ let translate (command : Command) =
     match command with
     | Join(Player p) -> Some("JOIN;" + p)
     | Attend(Player p) -> Some("ATTEND;" + p)
-    | SayDices(f, s) -> Some("DICES;" + (convertDice f) + ";" + (convertDice s))
+    | SayDices((f,s), Player p) -> Some("DICES;" + (convertDice f) + "" + (convertDice s) + ";" + p)
     | See(Player p) -> Some("SEE;" + p)
     | Roll(Player p) -> Some("ROLL;" + p)
     | _ ->

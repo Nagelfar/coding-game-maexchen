@@ -52,7 +52,7 @@ let private logProcessor (inbox : MailboxProcessor<LogMsg>) =
                 match msg with
                 | Log s ->
                     logToFile file s
-                    Console.WriteLine(s) 
+                    // Console.WriteLine(s) 
                 | Rollover -> rollover file
                 | CloseLog rc ->
                     closeLog file

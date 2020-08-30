@@ -37,7 +37,9 @@ let handleEvents sendResponse event =
 
 [<EntryPoint>]
 let main argv =
-    let (rawSender, rawReceiver) = connect System.Net.IPAddress.Loopback 9000
+    // 10.10.10.69
+    let ip = System.Net.IPAddress.Parse ("10.10.10.69")
+    let (rawSender, rawReceiver) = connect ip 8000
     let sender = sendMessageToServer rawSender
     let receiver = receiveFromServer rawReceiver
     messageLoop receiver (handleEvents sender)

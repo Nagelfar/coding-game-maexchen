@@ -8,7 +8,7 @@ open Xunit
 [<Fact>]
 let ``OK Leads to JOIN``() =
     let previousEvents = []
-    let event = Ok
-    let expected = Join(State.initial.self)
+    let event = Attending
+    let expected = Attend(State.initial.self)
     let decision = decide (ApplicationServices.buildState previousEvents) event
     Assert.Contains(expected, decision)
